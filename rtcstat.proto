@@ -1,0 +1,262 @@
+syntax = "proto3";
+
+message RTCCodecStats{
+    double timestamp = 1;
+    string type = 2;
+    string id = 3;
+    uint32 payload_type = 3;
+    string transport_id = 4;
+    string mime_type = 5;
+    optional uint32 clock_rate = 6;
+    optional uint32 channels = 7;
+    optional uint32 sdp_fmtp_line = 8;
+}
+
+message RTCInboundRTPStats{
+    double timestamp = 1;
+    string type = 2;
+    string id = 3;
+    uint32 ssrc = 4;
+    string kind = 5;
+    optional string transport_id = 6;
+    optional string codec_id = 7;
+    optional uint64 packets_received = 8;
+    optional uint64 packets_lost = 9;
+    optional double jitter = 10;
+    string track_identifier = 11;
+    optional string mid = 12;
+    optional string remote_id = 13;
+    optional uint64 frames_decoded = 14;
+    optional uint64 key_frames_decoded = 15;
+    optional uint64 frames_rendered = 16;
+    optional uint64 frames_dropped = 17;
+    optional uint64 frame_width = 18;
+    optional uint64 frame_height = 19;
+    optional double frames_per_second = 20;
+    optional uint64 qp_sum = 21;
+    optional double total_decode_time = 22;
+    optional double total_inter_frame_delay = 23;
+    optional double total_squared_inter_frame_delay = 24;
+    optional uint64 pause_count = 25;
+    optional double total_pauses_duration = 26;
+    optional uint64 freeze_count = 27;
+    optional double total_freezes_duration = 28;
+    optional double last_packet_received_timestamp = 29;
+    optional uint64 header_bytes_received = 30;
+    optional uint64 packets_discarded = 31;
+    optional uint64 fec_bytes_received = 32;
+    optional uint64 fec_packets_received = 33;
+    optional uint64 fec_packets_discarded = 33;
+    optional uint64 bytes_received = 34;
+    optional uint64 nack_count = 35;
+    optional uint64 fir_count = 36;
+    optional uint64 pli_count = 37;
+    optional double total_processing_delay = 38;
+    optional double estimated_playout_timestamp = 39;
+    optional double jitter_buffer_delay = 40;
+    optional double jitter_buffer_target_delay = 41;
+    optional uint64 jitter_buffer_emitted_count = 42;
+    optional double jitter_buffer_minimum_delay = 43;
+    optional uint64 total_samples_received = 44;
+    optional uint64 concealed_samples = 45;
+    optional uint64 silent_concealed_samples = 46;
+    optional uint64 concealment_events = 47;
+    optional uint64 inserted_samples_for_deceleration = 48;
+    optional uint64 removed_samples_for_acceleration = 49;
+    optional double audio_level = 50;
+    optional double total_audio_energy = 51;
+    optional double total_samples_duration = 52;
+    optional uint64 frames_received = 53;
+    optional string decoder_implementation = 54;
+    optional string playout_id = 55;
+    optional bool power_efficient_decoder = 56;
+    optional uint64 frames_assembled_from_multiple_packets = 57;
+    optional double total_assembly_time = 58;
+    optional uint64 retransmitted_packets_received = 59;
+    optional uint64 retransmitted_bytes_received = 60;
+    optional uint64 rtx_ssrc = 61;
+    optional uint64 fec_ssrc = 62;
+    optional uint32 stalled_time = 63;
+}
+
+message RTCOutboundRTPStats{
+    double timestamp = 1;
+    string type = 2;
+    string id = 3;
+    uint32 ssrc = 4;
+    string kind = 5;
+    optional string transport_id = 6;
+    optional string codec_id = 7;
+    optional uint64 packets_sent = 8;
+    optional uint64 bytes_sent = 9;
+    optional string mid = 10;
+    optional string media_source_id = 11;
+    optional string remote_id = 12;
+    optional string rid = 13;
+    optional uint64 header_bytes_sent = 14;
+    optional uint64 retransmitted_packets_sent = 15;
+    optional uint64 retransmitted_bytes_sent = 16;
+    optional uint64 rtx_ssrc = 17;
+    optional bool target_bitrate = 18;
+    optional uint64 total_encoded_bytes_target = 19;
+    optional uint64 frame_width = 20;
+    optional uint64 frame_height = 21;
+    optional bool frames_per_second = 22;
+    optional uint64 frames_sent = 23;
+    optional uint64 huge_frames_sent = 24;
+    optional uint64 frames_encoded = 25;
+    optional uint64 key_frames_encoded = 26;
+    optional uint64 qp_sum = 27;
+    optional bool total_encode_time = 28;
+    optional bool total_packet_send_delay = 29;
+    optional string quality_limitation_reason = 30;
+    optional map<string, double> quality_limitation_durations = 31;
+    optional uint64 quality_limitation_resolution_changes = 32;
+    optional uint64 nack_count = 33;
+    optional uint64 fir_count = 34;
+    optional uint64 pli_count = 35;
+    optional string encoder_implementation = 36;
+    optional bool power_efficient_encoder = 37;
+    optional bool active = 38;
+    optional string scalability_mode = 39;
+}
+
+message RTCRemoteInboundRTPStats{
+    double timestamp = 1;
+    string type = 2;
+    string id = 3;
+    uint32 ssrc = 4;
+    string kind = 5;
+    optional string transport_id = 6;
+    optional string codec_id = 7;
+    optional uint64 packets_received = 8;
+    optional uint64 packets_lost = 9;
+    optional double jitter = 10;
+    optional string local_id = 11;
+    optional double round_trip_time = 12;
+    optional double total_round_trip_time = 13;
+    optional double fraction_lost = 14;
+    optional uint64 round_trip_time_measurements = 15;
+}
+
+message RTCRemoteOutboundRTPStats{
+    double timestamp = 1;
+    string type = 2;
+    string id = 3;
+    uint32 ssrc = 4;
+    string kind = 5;
+    optional string transport_id = 6;
+    optional string codec_id = 7;
+    optional uint64 packets_sent = 8;
+    optional uint64 bytes_sent = 9;
+    optional string local_id = 10;
+    optional double remote_timestamp = 11;
+    optional uint64 reports_sent = 12;
+    optional double round_trip_time = 13;
+    optional double total_round_trip_time = 14;
+    optional uint64 round_trip_time_measurements = 15;
+}
+
+message RTCMediaSourceAudioStats{
+    double timestamp = 1;
+    string type = 2;
+    string id = 3;
+    optional string track_identifier = 4;
+    optional string kind = 5;
+    optional double audio_level = 6;
+    optional double total_audio_energy = 7;
+    optional double total_samples_duration = 8;
+    optional double echo_return_loss = 9;
+    optional double echo_return_loss_enhancement = 10;
+}
+
+message RTCMediaSourceVideoStats{
+    double timestamp = 1;
+    string type = 2;
+    string id = 3;
+    optional string track_identifier = 4;
+    optional string kind = 5;
+    optional uint64 width = 6;
+    optional uint64 height = 7;
+    optional uint64 frames = 8;
+    optional double frames_per_second = 9;
+}
+
+message RTCPeerConnectionStats{
+    double timestamp = 1;
+    string type = 2;
+    string id = 3;
+    optional uint64 data_channels_opened = 4;
+    optional uint64 data_channels_closed = 5;
+}
+
+message RTCDataChannelStats{
+    double timestamp = 1;
+    string type = 2;
+    string id = 3;
+    optional string label = 4;
+    optional string protocol = 5;
+    optional uint32 data_channel_identifier = 6;
+    string state = 7;
+    optional uint64 messages_sent = 8;
+    optional uint64 bytes_sent = 9;
+    optional uint64 messages_received = 10;
+    optional uint64 bytes_received = 11;
+}
+
+message RTCIceCandidatePairStats{
+    double timestamp = 1;
+    string type = 2;
+    string id = 3;
+    string transport_id = 4;
+    string local_candidate_id = 5;
+    string remote_candidate_id = 6;
+    string state = 7;
+    optional bool nominated = 8;
+    optional uint64 packets_sent = 9;
+    optional uint64 packets_received = 10;
+    optional uint64 bytes_sent = 11;
+    optional uint64 bytes_received = 12;
+    optional double last_packet_sent_timestamp = 13;
+    optional double last_packet_received_timestamp = 14;
+    optional double total_round_trip_time = 15;
+    optional double current_round_trip_time = 16;
+    optional double available_outgoing_bitrate = 17;
+    optional double available_incoming_bitrate = 18;
+    optional uint64 requests_received = 19;
+    optional uint64 requests_sent = 20;
+    optional uint64 responses_received = 21;
+    optional uint64 responses_sent = 22;
+    optional uint64 consent_requests_sent = 23;
+    optional uint64 packets_discarded_on_send = 24;
+    optional uint64 bytes_discarded_on_send = 25;
+}
+
+message RTCIceCandidateStats{
+    double timestamp = 1;
+    string type = 2;
+    string id = 3;
+    string transport_id = 4;
+    optional string address = 5;
+    optional uint64 port = 6;
+    optional string protocol = 7;
+    string candidate_type = 8;
+    optional uint64 priority = 9;
+    optional string url = 10;
+    optional string relay_protocol = 11;
+    optional string foundation = 12;
+    optional string related_address = 13;
+    optional uint64 related_port = 14;
+    optional string username_fragment = 15;
+    optional string tcp_type = 16;
+}
+
+message RTCCertificateStats{
+    double timestamp = 1;
+    string type = 2;
+    string id = 3;
+    string fingerprint = 4;
+    string fingerprint_algorithm = 5;
+    string base_64_certificate = 6;
+    optional string issuer_certificate_id = 7;
+}
