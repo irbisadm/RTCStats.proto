@@ -1,15 +1,23 @@
 syntax = "proto3";
 
+// Protocol Buffers schema for the W3C WebRTC Statistics API
+// https://www.w3.org/TR/webrtc-stats/
+// Field names are snake_case versions of the spec members, so the proto3 JSON
+// mapping accepts RTCStats objects returned by RTCPeerConnection.getStats() as-is.
+// Enum-typed members (RTCIceRole, RTCDtlsTransportState, ...) are kept as strings.
+
+package webrtc.stats;
+
 message RTCCodecStats{
     double timestamp = 1;
     string type = 2;
     string id = 3;
-    uint32 payload_type = 3;
-    string transport_id = 4;
-    string mime_type = 5;
-    optional uint32 clock_rate = 6;
-    optional uint32 channels = 7;
-    optional uint32 sdp_fmtp_line = 8;
+    uint32 payload_type = 4;
+    string transport_id = 5;
+    string mime_type = 6;
+    optional uint32 clock_rate = 7;
+    optional uint32 channels = 8;
+    optional string sdp_fmtp_line = 9;
 }
 
 message RTCInboundRTPStats{
@@ -46,37 +54,37 @@ message RTCInboundRTPStats{
     optional uint64 packets_discarded = 31;
     optional uint64 fec_bytes_received = 32;
     optional uint64 fec_packets_received = 33;
-    optional uint64 fec_packets_discarded = 33;
-    optional uint64 bytes_received = 34;
-    optional uint64 nack_count = 35;
-    optional uint64 fir_count = 36;
-    optional uint64 pli_count = 37;
-    optional double total_processing_delay = 38;
-    optional double estimated_playout_timestamp = 39;
-    optional double jitter_buffer_delay = 40;
-    optional double jitter_buffer_target_delay = 41;
-    optional uint64 jitter_buffer_emitted_count = 42;
-    optional double jitter_buffer_minimum_delay = 43;
-    optional uint64 total_samples_received = 44;
-    optional uint64 concealed_samples = 45;
-    optional uint64 silent_concealed_samples = 46;
-    optional uint64 concealment_events = 47;
-    optional uint64 inserted_samples_for_deceleration = 48;
-    optional uint64 removed_samples_for_acceleration = 49;
-    optional double audio_level = 50;
-    optional double total_audio_energy = 51;
-    optional double total_samples_duration = 52;
-    optional uint64 frames_received = 53;
-    optional string decoder_implementation = 54;
-    optional string playout_id = 55;
-    optional bool power_efficient_decoder = 56;
-    optional uint64 frames_assembled_from_multiple_packets = 57;
-    optional double total_assembly_time = 58;
-    optional uint64 retransmitted_packets_received = 59;
-    optional uint64 retransmitted_bytes_received = 60;
-    optional uint64 rtx_ssrc = 61;
-    optional uint64 fec_ssrc = 62;
-    optional uint32 stalled_time = 63;
+    optional uint64 fec_packets_discarded = 34;
+    optional uint64 bytes_received = 35;
+    optional uint64 nack_count = 36;
+    optional uint64 fir_count = 37;
+    optional uint64 pli_count = 38;
+    optional double total_processing_delay = 39;
+    optional double estimated_playout_timestamp = 40;
+    optional double jitter_buffer_delay = 41;
+    optional double jitter_buffer_target_delay = 42;
+    optional uint64 jitter_buffer_emitted_count = 43;
+    optional double jitter_buffer_minimum_delay = 44;
+    optional uint64 total_samples_received = 45;
+    optional uint64 concealed_samples = 46;
+    optional uint64 silent_concealed_samples = 47;
+    optional uint64 concealment_events = 48;
+    optional uint64 inserted_samples_for_deceleration = 49;
+    optional uint64 removed_samples_for_acceleration = 50;
+    optional double audio_level = 51;
+    optional double total_audio_energy = 52;
+    optional double total_samples_duration = 53;
+    optional uint64 frames_received = 54;
+    optional string decoder_implementation = 55;
+    optional string playout_id = 56;
+    optional bool power_efficient_decoder = 57;
+    optional uint64 frames_assembled_from_multiple_packets = 58;
+    optional double total_assembly_time = 59;
+    optional uint64 retransmitted_packets_received = 60;
+    optional uint64 retransmitted_bytes_received = 61;
+    optional uint64 rtx_ssrc = 62;
+    optional uint64 fec_ssrc = 63;
+    optional uint32 stalled_time = 64;
 }
 
 message RTCOutboundRTPStats{
@@ -97,20 +105,20 @@ message RTCOutboundRTPStats{
     optional uint64 retransmitted_packets_sent = 15;
     optional uint64 retransmitted_bytes_sent = 16;
     optional uint64 rtx_ssrc = 17;
-    optional bool target_bitrate = 18;
+    optional double target_bitrate = 18;
     optional uint64 total_encoded_bytes_target = 19;
     optional uint64 frame_width = 20;
     optional uint64 frame_height = 21;
-    optional bool frames_per_second = 22;
+    optional double frames_per_second = 22;
     optional uint64 frames_sent = 23;
     optional uint64 huge_frames_sent = 24;
     optional uint64 frames_encoded = 25;
     optional uint64 key_frames_encoded = 26;
     optional uint64 qp_sum = 27;
-    optional bool total_encode_time = 28;
-    optional bool total_packet_send_delay = 29;
+    optional double total_encode_time = 28;
+    optional double total_packet_send_delay = 29;
     optional string quality_limitation_reason = 30;
-    optional map<string, double> quality_limitation_durations = 31;
+    map<string, double> quality_limitation_durations = 31;
     optional uint64 quality_limitation_resolution_changes = 32;
     optional uint64 nack_count = 33;
     optional uint64 fir_count = 34;
@@ -259,4 +267,67 @@ message RTCCertificateStats{
     string fingerprint_algorithm = 5;
     string base_64_certificate = 6;
     optional string issuer_certificate_id = 7;
+}
+
+message RTCTransportStats{
+    double timestamp = 1;
+    string type = 2;
+    string id = 3;
+    optional uint64 packets_sent = 4;
+    optional uint64 packets_received = 5;
+    optional uint64 bytes_sent = 6;
+    optional uint64 bytes_received = 7;
+    optional string ice_role = 8;
+    optional string ice_local_username_fragment = 9;
+    string dtls_state = 10;
+    optional string ice_state = 11;
+    optional string selected_candidate_pair_id = 12;
+    optional string local_certificate_id = 13;
+    optional string remote_certificate_id = 14;
+    optional string tls_version = 15;
+    optional string dtls_cipher = 16;
+    optional string dtls_role = 17;
+    optional string srtp_cipher = 18;
+    optional uint32 selected_candidate_pair_changes = 19;
+    optional uint32 ccfb_messages_sent = 20;
+    optional uint32 ccfb_messages_received = 21;
+}
+
+message RTCAudioPlayoutStats{
+    double timestamp = 1;
+    string type = 2;
+    string id = 3;
+    string kind = 4;
+    optional double synthesized_samples_duration = 5;
+    optional uint32 synthesized_samples_events = 6;
+    optional double total_samples_duration = 7;
+    optional double total_playout_delay = 8;
+    optional uint64 total_samples_count = 9;
+}
+
+// One entry of an RTCStatsReport. Exactly one member is set, matching RTCStats.type.
+message RTCStatsEntry{
+    oneof stats {
+        RTCCodecStats codec = 1;
+        RTCInboundRTPStats inbound_rtp = 2;
+        RTCOutboundRTPStats outbound_rtp = 3;
+        RTCRemoteInboundRTPStats remote_inbound_rtp = 4;
+        RTCRemoteOutboundRTPStats remote_outbound_rtp = 5;
+        RTCMediaSourceAudioStats media_source_audio = 6;
+        RTCMediaSourceVideoStats media_source_video = 7;
+        RTCAudioPlayoutStats media_playout = 8;
+        RTCPeerConnectionStats peer_connection = 9;
+        RTCDataChannelStats data_channel = 10;
+        RTCTransportStats transport = 11;
+        RTCIceCandidatePairStats candidate_pair = 12;
+        RTCIceCandidateStats local_candidate = 13;
+        RTCIceCandidateStats remote_candidate = 14;
+        RTCCertificateStats certificate = 15;
+    }
+}
+
+// A snapshot of RTCPeerConnection.getStats().
+message RTCStatsReport{
+    double timestamp = 1;
+    repeated RTCStatsEntry stats = 2;
 }
