@@ -1,5 +1,13 @@
 syntax = "proto3";
 
+// Protocol Buffers schema for the W3C WebRTC Statistics API
+// https://www.w3.org/TR/webrtc-stats/
+// Field names are snake_case versions of the spec members, so the proto3 JSON
+// mapping accepts RTCStats objects returned by RTCPeerConnection.getStats() as-is.
+// Enum-typed members (RTCIceRole, RTCDtlsTransportState, ...) are kept as strings.
+
+package webrtc.stats;
+
 message RTCCodecStats{
     double timestamp = 1;
     string type = 2;
@@ -259,4 +267,67 @@ message RTCCertificateStats{
     string fingerprint_algorithm = 5;
     string base_64_certificate = 6;
     optional string issuer_certificate_id = 7;
+}
+
+message RTCTransportStats{
+    double timestamp = 1;
+    string type = 2;
+    string id = 3;
+    optional uint64 packets_sent = 4;
+    optional uint64 packets_received = 5;
+    optional uint64 bytes_sent = 6;
+    optional uint64 bytes_received = 7;
+    optional string ice_role = 8;
+    optional string ice_local_username_fragment = 9;
+    string dtls_state = 10;
+    optional string ice_state = 11;
+    optional string selected_candidate_pair_id = 12;
+    optional string local_certificate_id = 13;
+    optional string remote_certificate_id = 14;
+    optional string tls_version = 15;
+    optional string dtls_cipher = 16;
+    optional string dtls_role = 17;
+    optional string srtp_cipher = 18;
+    optional uint32 selected_candidate_pair_changes = 19;
+    optional uint32 ccfb_messages_sent = 20;
+    optional uint32 ccfb_messages_received = 21;
+}
+
+message RTCAudioPlayoutStats{
+    double timestamp = 1;
+    string type = 2;
+    string id = 3;
+    string kind = 4;
+    optional double synthesized_samples_duration = 5;
+    optional uint32 synthesized_samples_events = 6;
+    optional double total_samples_duration = 7;
+    optional double total_playout_delay = 8;
+    optional uint64 total_samples_count = 9;
+}
+
+// One entry of an RTCStatsReport. Exactly one member is set, matching RTCStats.type.
+message RTCStatsEntry{
+    oneof stats {
+        RTCCodecStats codec = 1;
+        RTCInboundRTPStats inbound_rtp = 2;
+        RTCOutboundRTPStats outbound_rtp = 3;
+        RTCRemoteInboundRTPStats remote_inbound_rtp = 4;
+        RTCRemoteOutboundRTPStats remote_outbound_rtp = 5;
+        RTCMediaSourceAudioStats media_source_audio = 6;
+        RTCMediaSourceVideoStats media_source_video = 7;
+        RTCAudioPlayoutStats media_playout = 8;
+        RTCPeerConnectionStats peer_connection = 9;
+        RTCDataChannelStats data_channel = 10;
+        RTCTransportStats transport = 11;
+        RTCIceCandidatePairStats candidate_pair = 12;
+        RTCIceCandidateStats local_candidate = 13;
+        RTCIceCandidateStats remote_candidate = 14;
+        RTCCertificateStats certificate = 15;
+    }
+}
+
+// A snapshot of RTCPeerConnection.getStats().
+message RTCStatsReport{
+    double timestamp = 1;
+    repeated RTCStatsEntry stats = 2;
 }
